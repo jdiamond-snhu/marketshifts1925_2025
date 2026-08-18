@@ -1,4 +1,2 @@
-streamlit
-plotly
-pandas
-numpy
+plotly>=5.20.0
+pandas>=2.0.0
