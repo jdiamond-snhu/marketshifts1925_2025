@@ -77,16 +77,24 @@ fig.add_trace(go.Scatter(
 
 # 3. Design structural dual layout settings
 fig.update_layout(
-    xaxis=dict(title="Timeline (Years)", tickmode="linear", dtick=10),
+    # Use top-level shorthand properties for axis titles to prevent dictionary errors
+    xaxis_title="Timeline (Years)",
+    yaxis_title="Total Market Index Base Value",
+    
+    xaxis=dict(
+        tickmode="linear", 
+        dtick=10
+    ),
     yaxis=dict(
-        title="Total Market Index Base Value",
-        titlefont=dict(color="#1f77b4"),
+        title_font=dict(color="#1f77b4"),
         tickfont=dict(color="#1f77b4"),
         type="log" # Logarithmic scale handles 100-year compound growth cleaner
     ),
     yaxis2=dict(
-        title="Annual Inflation Rate (%)",
-        titlefont=dict(color="#ff7f0e"),
+        title=dict(
+            text="Annual Inflation Rate (%)",
+            font=dict(color="#ff7f0e")
+        ),
         tickfont=dict(color="#ff7f0e"),
         anchor="x",
         overlaying="y",
