@@ -3,44 +3,38 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
-# Set up Streamlit page environment layout
 st.set_page_config(page_title="Macro History Dashboard", layout="wide")
 
 st.title("📈 100 Years of Macroeconomics (1925 - 2025)")
 st.subheader("Dual-Axis tracking of Market Growth vs. Annual Inflation Rate")
 
-# 1. Generate historical proxy data spanning 1925 to 2025
 @st.cache_data
 def load_historical_data():
     years = np.arange(1925, 2026)
-    
-    # Simulate S&P 500 growth trajectory starting from a base index of 100
-    # Incorporates historical crashes (1929, 1970s, 2000, 2008) and secular bull runs
     market_values = []
     current_val = 100.0
     
-    np.random.seed(42) # Seed to ensure consistency across re-runs
+    np.random.seed(42)
     for y in years:
-        if y >= 1929 and y <= 1932:  # Great Depression crash
+        if y >= 1929 and y <= 1932:
             growth = np.random.uniform(-0.25, -0.10)
-        elif y == 2000 or y == 2001 or y == 2008: # Dot-com and GFC corrections
+        elif y in [2000, 2001, 2008]:
             growth = np.random.uniform(-0.20, -0.05)
-        else:  # Standard compounding expansion years
+        else:
             growth = np.random.uniform(0.05, 0.14)
             
         current_val *= (1 + growth)
         market_values.append(current_val)
         
-    # Simulate US Inflation rate fluctuations 
     inflation_rates = []
     for y in years:
-        if y >= 1930 and y <= 1933: # Great Depression deflation
+        if y >= 1930 and y <= 1933:
             inf = np.random.uniform(-10.0, -2.0)
-        elif y >= 1973 and y <= 1981: # 1970s Great Inflation stagflation
+        elif y >= 1973 and y <= 1981:
             inf = np.random.uniform(6.0, 13.5)
-        elif y in [2021, 2022]: # Post-pandemic supply shock spikes
+        elif y in [2021, 2022]:
             inf = np.random.uniform(4.5, 8.0)
-        else: # Standard modern targeted baseline stability
+        else:
             inf = np.random.uniform(1.5, 3.5)
         inflation_rates.append(inf)
 
@@ -53,63 +47,92 @@ def load_historical_data():
 
 df = load_historical_data()
 
-# 2. Build the interactive Plotly Dual-Axis graph object
+# --- NEW: MAP MACRO EVENTS TO SPECIFIC TIMELINES ---
+# Define historical events with starting/ending years and descriptive text
+events = [
+    {
+        "start": 1929, "end": 1933, "color": "rgba(255, 0, 0, 0.07)", 
+        "label": "Great Depression", "hover": "Great Depression: Stock crash & major asset over-supply cuts markets by 80%+"
+    },
+    {
+        "start": 1973, "end": 1981, "color": "rgba(255, 165, 0, 0.07)", 
+        "label": "Great Inflation", "hover": "Stagflation Crisis: Oil supply shocks trigger runaway interest rates & market friction"
+    },
+    {
+        "start": 2007, "end": 2008, "color": "rgba(128, 0, 128, 0.07)", 
+        "label": "Housing Crash", "hover": "Great Recession: Subprime mortgage defaults trigger a 20%+ banking market decline"
+    }
+]
+
+# Map text descriptions to every single year in our main dataframe row index
+df["Historical_Event"] = "Stable Market Cycle"  # Default text placeholder
+for e in events:
+    # If the year falls within the event boundaries, apply the custom text string
+    df.loc[(df["Year"] >= e["start"]) & (df["Year"] <= e["end"]), "Historical_Event"] = e["hover"]
+
 fig = go.Figure()
 
 # Add Primary Trace: Market Value (Left Y-Axis)
 fig.add_trace(go.Scatter(
-    x=df["Year"],
-    y=df["Market_Value"],
-    name="Market Index Value (Left Axis)",
-    mode="lines",
+    x=df["Year"], y=df["Market_Value"],
+    name="Market Index Value", mode="lines",
     line=dict(color="#1f77b4", width=3)
 ))
 
 # Add Secondary Trace: Inflation Rate (Right Y-Axis)
 fig.add_trace(go.Scatter(
-    x=df["Year"],
-    y=df["Inflation_Rate"],
-    name="Inflation Rate % (Right Axis)",
-    mode="lines",
+    x=df["Year"], y=df["Inflation_Rate"],
+    name="Inflation Rate %", mode="lines",
     line=dict(color="#ff7f0e", width=2, dash="dash"),
-    yaxis="y2" # Targets the secondary axis parameter
+    yaxis="y2"
 ))
 
-# 3. Design structural dual layout settings
+# --- NEW: INVISIBLE DATA TRACE FOR TEXT POPUPS ---
+# This trace map holds our text data. It remains invisible, but surfaces text data on mouse hover.
+fig.add_trace(go.Scatter(
+    x=df["Year"],
+    y=[1] * len(df),  # Arbitrary y values since it's hidden from view
+    name="Macro Event Note",
+    mode="markers",
+    marker=dict(opacity=0),  # Forces absolute invisibility on screen
+    text=df["Historical_Event"],
+    hovertemplate="%{text}<extra></extra>",  # Standardizes tooltip layout formatting
+    hoverinfo="text"
+))
+
+# --- NEW: DRAW THE TRANSPARENT BACKGROUND COLUMNS ---
+# Add the visual colored ranges directly into the layout architecture
+for e in events:
+    fig.add_vrect(
+        x0=e["start"], x1=e["end"],
+        fillcolor=e["color"],
+        opacity=1,
+        layer="below",  # Keeps colored rectangles sitting behind main graph lines
+        line_width=0
+    )
+
+# Clean Layout Management Settings
 fig.update_layout(
-    # Use top-level shorthand properties for axis titles to prevent dictionary errors
     xaxis_title="Timeline (Years)",
     yaxis_title="Total Market Index Base Value",
-    
-    xaxis=dict(
-        tickmode="linear", 
-        dtick=10
-    ),
+    xaxis=dict(tickmode="linear", dtick=10),
     yaxis=dict(
         title_font=dict(color="#1f77b4"),
         tickfont=dict(color="#1f77b4"),
-        type="log" # Logarithmic scale handles 100-year compound growth cleaner
+        type="log"
     ),
     yaxis2=dict(
-        title=dict(
-            text="Annual Inflation Rate (%)",
-            font=dict(color="#ff7f0e")
-        ),
+        title=dict(text="Annual Inflation Rate (%)", font=dict(color="#ff7f0e")),
         tickfont=dict(color="#ff7f0e"),
-        anchor="x",
-        overlaying="y",
-        side="right",
-        showgrid=False # Keeps background lines from overlapping confusingly
+        anchor="x", overlaying="y", side="right", showgrid=False
     ),
     legend=dict(x=0.01, y=0.99, borderwidth=1),
-    hovermode="x unified",
-    height=600
+    hovermode="x unified",  # Locks tooltips together vertically to show everything instantly
+    height=650
 )
 
-# 4. Render directly within the Streamlit frontend layout interface
 st.plotly_chart(fig, use_container_width=True)
 
-# 5. Display simple data summary tables underneath
 st.markdown("### 🗒️ Data Overview Options")
 show_data = st.checkbox("Toggle Raw Dataset Table")
 if show_data:
