@@ -7,7 +7,7 @@ st.set_page_config(page_title="Macro History Dashboard", layout="wide")
 
 st.title("📈 100 Years of Macroeconomics (1925 - 2025)")
 st.subheader("Dual-Axis tracking of Market Growth vs. Annual Inflation Rate")
-
+st.write("Jeff Diamond, 2026")
 @st.cache_data
 def load_historical_data():
     years = np.arange(1925, 2026)
