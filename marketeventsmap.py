@@ -63,6 +63,14 @@ events = [
         "label": "Post-WWII Shock", "hover": "Post-War Demobilization: War spending stops causing a short structural drop, followed by a massive lifting of price controls"
     },
     {
+        "start": 1951, "end": 1952, "color": "rgba(52, 152, 219, 0.07)", 
+        "label": "1951 Fed-Treasury Accord", "hover": "Fed Autonomy Regained (1951): Historic Accord separates the Fed from Treasury control, allowing independent rate hikes to crush post-war inflation"
+    },
+    {
+        "start": 1959, "end": 1960, "color": "rgba(39, 174, 96, 0.07)", 
+        "label": "1959 Vault Cash Act", "hover": "Vault Cash Expansion (1959): Fed allows banks to count on-hand cash as legal reserves, instantly unlocking billions for suburban home loans"
+    },
+    {
         "start": 1971, "end": 1972, "color": "rgba(241, 196, 15, 0.07)", 
         "label": "Nixon Shock", "hover": "Nixon Shock (1971): US abandons the gold standard, destroying the Bretton Woods system & sparking fiat asset devaluation"
     },
