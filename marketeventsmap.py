@@ -63,6 +63,10 @@ events = [
         "label": "Silver Run & Crash", "hover": "Silver Corner Crash: Hunt brothers corner 1/3 of global silver, sparking a huge commodity spike & immediate collapse"
     },
     {
+        "start": 1981, "end": 1985, "color": "rgba(41, 128, 185, 0.06)", 
+        "label": "Volcker Rate Hikes", "hover": "Reagan-Volcker Solution: Fed raises interest rates to a record 20% to crush hyper-inflation, triggering a deliberate double-dip recession"
+    },
+    {
         "start": 1995, "end": 2001, "color": "rgba(46, 204, 113, 0.06)", 
         "label": "Dot-com Bubble", "hover": "Dot-com Crash: Extreme speculation in internet startups peaks in 2000, wiping out trillions in tech valuations"
     },
@@ -95,7 +99,6 @@ events = [
         "label": "COVID-19 Financial Shock", "hover": "COVID Financial Crisis: Global pandemic lockdowns spark sudden recession, saved by historic central bank stimulus"
     }
 ]
-
 
 # Map text descriptions to every single year in our main dataframe row index
 df["Historical_Event"] = "Stable Market Cycle"  # Default text placeholder
