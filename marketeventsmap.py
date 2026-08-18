@@ -55,6 +55,18 @@ events = [
         "label": "Great Depression", "hover": "Great Depression: Stock crash & asset over-supply cuts markets by 80%+"
     },
     {
+        "start": 1937, "end": 1938, "color": "rgba(142, 68, 173, 0.06)", 
+        "label": "1937 Roosevelt Recession", "hover": "Recession of 1937: Premature fiscal tightening and monetary contracting forces a severe economic relapse"
+    },
+    {
+        "start": 1945, "end": 1946, "color": "rgba(22, 160, 133, 0.06)", 
+        "label": "Post-WWII Shock", "hover": "Post-War Demobilization: War spending stops causing a short structural drop, followed by a massive lifting of price controls"
+    },
+    {
+        "start": 1971, "end": 1972, "color": "rgba(241, 196, 15, 0.07)", 
+        "label": "Nixon Shock", "hover": "Nixon Shock (1971): US abandons the gold standard, destroying the Bretton Woods system & sparking fiat asset devaluation"
+    },
+    {
         "start": 1973, "end": 1981, "color": "rgba(255, 165, 0, 0.05)", 
         "label": "Great Inflation", "hover": "Stagflation Crisis: Oil supply shocks trigger runaway interest rates & market friction"
     },
