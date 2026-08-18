@@ -97,6 +97,10 @@ events = [
     {
         "start": 2020, "end": 2021, "color": "rgba(255, 0, 0, 0.06)", 
         "label": "COVID-19 Financial Shock", "hover": "COVID Financial Crisis: Global pandemic lockdowns spark sudden recession, saved by historic central bank stimulus"
+    },
+    {
+        "start": 2022, "end": 2023, "color": "rgba(231, 76, 60, 0.06)", 
+        "label": "2022 Fed Tightening", "hover": "Modern Rate Shock: Fed aggressively hikes interest rates from 0% to 5.25%+ to stomp out post-pandemic inflation, sparking a 19% bear market correction"
     }
 ]
 
