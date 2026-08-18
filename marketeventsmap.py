@@ -99,7 +99,7 @@ events = [
         "label": "Euro Sovereign Debt", "hover": "Eurozone Crisis: High government debt in Greece/Italy triggers banking sector panic & bailouts"
     },
     {
-        "start": 2013, "end": 2013, "color": "rgba(210, 105, 30, 0.08)", 
+        "start": 2013, "end": 2013, "color": "rgba(41, 128, 185, 0.06)", 
         "label": "Taper Tantrum", "hover": "Emerging Market Turmoil: Fed hints at scaling back QE, causing mass capital flight from developing markets"
     },
     {
