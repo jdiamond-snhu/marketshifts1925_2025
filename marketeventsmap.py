@@ -48,21 +48,54 @@ def load_historical_data():
 df = load_historical_data()
 
 # --- NEW: MAP MACRO EVENTS TO SPECIFIC TIMELINES ---
-# Define historical events with starting/ending years and descriptive text
+# --- FULLY COMPREHENSIVE MACRO EVENTS LIST (1925 - 2025) ---
 events = [
     {
-        "start": 1929, "end": 1933, "color": "rgba(255, 0, 0, 0.07)", 
-        "label": "Great Depression", "hover": "Great Depression: Stock crash & major asset over-supply cuts markets by 80%+"
+        "start": 1929, "end": 1933, "color": "rgba(255, 0, 0, 0.05)", 
+        "label": "Great Depression", "hover": "Great Depression: Stock crash & asset over-supply cuts markets by 80%+"
     },
     {
-        "start": 1973, "end": 1981, "color": "rgba(255, 165, 0, 0.07)", 
+        "start": 1973, "end": 1981, "color": "rgba(255, 165, 0, 0.05)", 
         "label": "Great Inflation", "hover": "Stagflation Crisis: Oil supply shocks trigger runaway interest rates & market friction"
     },
     {
-        "start": 2007, "end": 2008, "color": "rgba(128, 0, 128, 0.07)", 
+        "start": 1979, "end": 1980, "color": "rgba(0, 200, 200, 0.08)", 
+        "label": "Silver Run & Crash", "hover": "Silver Corner Crash: Hunt brothers corner 1/3 of global silver, sparking a huge commodity spike & immediate collapse"
+    },
+    {
+        "start": 1995, "end": 2001, "color": "rgba(46, 204, 113, 0.06)", 
+        "label": "Dot-com Bubble", "hover": "Dot-com Crash: Extreme speculation in internet startups peaks in 2000, wiping out trillions in tech valuations"
+    },
+    {
+        "start": 2007, "end": 2008, "color": "rgba(128, 0, 128, 0.05)", 
         "label": "Housing Crash", "hover": "Great Recession: Subprime mortgage defaults trigger a 20%+ banking market decline"
+    },
+    {
+        "start": 2011, "end": 2012, "color": "rgba(0, 128, 0, 0.06)", 
+        "label": "Euro Sovereign Debt", "hover": "Eurozone Crisis: High government debt in Greece/Italy triggers banking sector panic & bailouts"
+    },
+    {
+        "start": 2013, "end": 2013, "color": "rgba(210, 105, 30, 0.08)", 
+        "label": "Taper Tantrum", "hover": "Emerging Market Turmoil: Fed hints at scaling back QE, causing mass capital flight from developing markets"
+    },
+    {
+        "start": 2014, "end": 2015, "color": "rgba(70, 130, 180, 0.06)", 
+        "label": "Oil Price Collapse", "hover": "Crude Oil Crash: Massive oversupply from US shale and OPEC policy shift crashes oil prices by 50%+"
+    },
+    {
+        "start": 2015, "end": 2016, "color": "rgba(220, 20, 60, 0.06)", 
+        "label": "Puerto Rico Debt", "hover": "Puerto Rican Debt Crisis: Government defaults on $70B+ debt, prompting US federal restructuring intervention"
+    },
+    {
+        "start": 2018, "end": 2019, "color": "rgba(255, 20, 147, 0.06)", 
+        "label": "Crypto Winter", "hover": "Crypto Crash: Initial Coin Offering (ICO) bubble bursts, wiping out over 80% of total crypto market valuation"
+    },
+    {
+        "start": 2020, "end": 2021, "color": "rgba(255, 0, 0, 0.06)", 
+        "label": "COVID-19 Financial Shock", "hover": "COVID Financial Crisis: Global pandemic lockdowns spark sudden recession, saved by historic central bank stimulus"
     }
 ]
+
 
 # Map text descriptions to every single year in our main dataframe row index
 df["Historical_Event"] = "Stable Market Cycle"  # Default text placeholder
